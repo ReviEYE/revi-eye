@@ -1,0 +1,23 @@
+{
+    "manifest_version": 3,
+    "name": "PROTOTYPE",
+    "version": "1.0",
+    "permissions": ["activeTab", "scripting"],
+    "action": {
+      "default_icon": {
+        "48": "icon48.png"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["js/App.js"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["*"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
