@@ -1,7 +1,16 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
+import { useUrlChange } from './hooks/useUrlChange';
 
 const App = () => {
+  useUrlChange((nowPage) => {
+    const iframe = document.getElementById('content-iframe');
+    iframe?.contentWindow?.postMessage(
+      { action: 'send-dom', payload: nowPage },
+      '*'
+    );
+  });
+  
   useEffect(() => {
     const iframe = document.createElement('iframe');
     iframe.src = chrome.runtime.getURL('public/index.html');

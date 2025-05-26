@@ -15,6 +15,10 @@ const Toggle = () => {
         const html = event.data.payload;
         console.log(html);
       }
+
+      if (event.data?.cation === 'ANNOUNCE_NOW_PAGE') {
+        const nowPage = event.data.payload;
+      }
     };
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
