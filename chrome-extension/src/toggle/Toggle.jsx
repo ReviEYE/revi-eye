@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Content from './Content';
+import { extractReviewsFromHtml } from './util/extractReviewsFromHtml';
 
 const Toggle = () => {
   const [open, setOpen] = useState(false);
@@ -13,7 +14,8 @@ const Toggle = () => {
 
       if (event.data?.action === 'send-dom') {
         const html = event.data.payload;
-        console.log(html);
+        const reviews = extractReviewsFromHtml(html);
+        console.log(reviews);
       }
 
       if (event.data?.cation === 'ANNOUNCE_NOW_PAGE') {

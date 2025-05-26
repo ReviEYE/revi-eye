@@ -6,7 +6,7 @@ const App = () => {
   useUrlChange((nowPage) => {
     const iframe = document.getElementById('content-iframe');
     iframe?.contentWindow?.postMessage(
-      { action: 'send-dom', payload: nowPage },
+      { action: 'ANNOUNCE_NOW_PAGE', payload: nowPage },
       '*'
     );
   });
