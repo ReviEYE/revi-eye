@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import styled from 'styled-components';
+import { FaCheckCircle } from 'react-icons/fa';
 import { extractReviewsFromHtml } from './util/extractReviewsFromHtml';
+import {Stack} from "react-bootstrap";
 
 const Wrapper = styled.div`
   width: 300px;
@@ -24,15 +26,40 @@ const SlideContainer = styled.div`
 `;
 
 const SlidePage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   width: 300px;
   height: 100%;
   padding: 1rem;
   flex-shrink: 0;
+  background-color: #b8289C;
 `;
 
-const variant = {
-  SUCCESS: 'success',
-  FAIL: 'warning',
+
+const IconWrapper = styled.div`
+  width: 64px;
+  height: 64px;
+  background-color: #28a745; /* 초록색 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%; /* 원형 배경 */
+`;
+
+const StyledIcon = styled(FaCheckCircle)`
+  color: white;
+  width: 32px;
+  height: 32px;
+`;
+
+const GreenIcon = () => {
+  return (
+    <IconWrapper>
+      <StyledIcon />
+    </IconWrapper>
+  );
 };
 
 const TypingText = ({ text, children, speed = 50 }) => {
@@ -77,12 +104,10 @@ const Content = ({ open }) => {
       <SlideContainer step={step}>
         {/* Step 1: 초기 화면 */}
         <SlidePage>
-          <Alert style={{ backgroundColor: '#fff' }} key={variant.SUCCESS} variant={variant.SUCCESS}>
-            지원 중입니다.
-          </Alert>
-          <Alert style={{ backgroundColor: '#fff' }} key={variant.FAIL} variant={variant.FAIL}>
-            현재 페이지는 지원 되지 않습니다.
-          </Alert>
+          <Stack gap={3} className="flex-grow-0 align-items-center">
+            <GreenIcon/>
+            <h2>현재 페이지는 지원됩니다.</h2>
+          </Stack>
           <Button onClick={() => {
             window.parent.postMessage({ action: 'request-dom' }, '*');
             setStep(2); // 슬라이드 전환
