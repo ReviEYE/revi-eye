@@ -57,22 +57,23 @@ const TypingText = ({ text, children, speed = 50 }) => {
   return <div style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</div>;
 };
 
+
 const Content = ({ open }) => {
   const [step, setStep] = useState(1);
   const [reviews, setReviews] = useState([]);
+  const [nowPage, setNowPage] = useState('');
+
+  const findReviewsButtonHandler = () => {
+    window.parent.postMessage({ action: 'REQUEST_DOM' }, '*');
+    setStep(2); // 슬라이드 전환
+  }
 
   useEffect(() => {
-      const handler = (event) => {  
-        if (event.data?.action === 'send-dom') {
-          const html = event.data.payload;
-          const reviews = extractReviewsFromHtml(html);
-          console.log(reviews);
-        }
-  
-        if (event.data?.cation === 'ANNOUNCE_NOW_PAGE') {
-          const nowPage = event.data.payload;
-        }
-      };
+      const handler = (event) => {
+        if (event.data.action === 'ANNOUNCE_NOW_PAGE') setNowPage(event.data.payload);
+        if (event.data.action === 'SEND_DOM') setReviews(extractReviewsFromHtml(event.data.payload) ?? []);
+      }
+
       window.addEventListener('message', handler);
       return () => window.removeEventListener('message', handler);
     }, []);
@@ -86,10 +87,7 @@ const Content = ({ open }) => {
             <GreenIcon/>
             <h2>현재 페이지는 지원됩니다.</h2>
           </Stack>
-          <Button onClick={() => {
-            window.parent.postMessage({ action: 'request-dom' }, '*');
-            setStep(2); // 슬라이드 전환
-          }} variant="success">
+          <Button onClick={findReviewsButtonHandler} variant="success">
             리뷰 탐지하기
           </Button>
         </SlidePage>
@@ -97,7 +95,11 @@ const Content = ({ open }) => {
         {/* Step 2: 전환된 화면 */}
         <SlidePage>
           <h5>탐지 결과</h5>
-            <TypingText key={step}>여기에 결과를 보여줄 수 있어요.</TypingText>
+          {
+              reviews.map((review, index) => (
+                  <TypingText key={index} text={String(review)} />
+              ))
+          }
           <Button onClick={() => setStep(1)} variant="secondary">뒤로</Button>
         </SlidePage>
       </SlideContainer>

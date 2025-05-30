@@ -57,12 +57,12 @@ const App = () => {
     document.body.appendChild(button);
 
     const handler = (event) => {
-      if (event.data?.action === 'request-dom') {
+      if (event.data?.action === 'REQUEST_DOM') {
         const fullHtml = document.documentElement.outerHTML;
   
         const iframe = document.getElementById('content-iframe');
         iframe?.contentWindow?.postMessage(
-          { action: 'send-dom', payload: fullHtml },
+          { action: 'SEND_DOM', payload: fullHtml },
           '*'
         );
       }
