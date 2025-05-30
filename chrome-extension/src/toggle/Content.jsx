@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { FaCheckCircle } from 'react-icons/fa';
 import { extractReviewsFromHtml } from './util/extractReviewsFromHtml';
 import {Stack} from "react-bootstrap";
+import {GreenIcon} from "./component/GreenIcon.jsx";
+import {RedIcon} from "./component/RedIcon.jsx";
 
 const Wrapper = styled.div`
   width: 300px;
@@ -34,33 +36,9 @@ const SlidePage = styled.div`
   height: 100%;
   padding: 1rem;
   flex-shrink: 0;
-  background-color: #b8289C;
+  background-color: #F4F3EA;
 `;
 
-
-const IconWrapper = styled.div`
-  width: 64px;
-  height: 64px;
-  background-color: #28a745; /* 초록색 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%; /* 원형 배경 */
-`;
-
-const StyledIcon = styled(FaCheckCircle)`
-  color: white;
-  width: 32px;
-  height: 32px;
-`;
-
-const GreenIcon = () => {
-  return (
-    <IconWrapper>
-      <StyledIcon />
-    </IconWrapper>
-  );
-};
 
 const TypingText = ({ text, children, speed = 50 }) => {
   const content = text || children || '';
