@@ -106,7 +106,7 @@ const Content = ({open}) => {
                 <StepOne isReviewDetectablePage={isReviewDetectablePage}
                          findReviewsButtonHandler={findReviewsButtonHandler}/>
                 {/* Step 2: 전환된 화면 */}
-                <StepTwo reviews={reviews} setStep={setStep}></StepTwo>
+                <StepTwo key={step} reviews={reviews} setStep={setStep}></StepTwo>
             </SlideContainer>
         </Wrapper>
     );
