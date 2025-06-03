@@ -6,9 +6,9 @@ import {StepOne} from "./page/StepOne.jsx";
 import {StepTwo} from "./page/StepTwo.jsx";
 
 const WrapperStyle = styled.div`
+    position: relative;
     width: 300px;
     height: 510px;
-    position: relative;
     overflow: hidden;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -20,11 +20,13 @@ const WrapperStyle = styled.div`
 
 
 const ControlButtons = styled.div`
-    position: absolute;
-    top: 8px;
-    right: 8px;
+    position: absolute; /* 위에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.5rem;
     display: flex;
-    gap: 6px;
+    justify-content: space-between;
     z-index: 10;
 `;
 
@@ -43,15 +45,28 @@ const IconButton = styled.button`
     }
 `;
 
-const Wrapper = ({children, transparent, transparencyButtonClickHandler, minimizeButtonClickHandler}) => {
+const Wrapper = ({
+                     children,
+                     step,
+                     setStep,
+                     transparent,
+                     transparencyButtonClickHandler,
+                     minimizeButtonClickHandler
+                 }) => {
 
     return (
         <WrapperStyle transparent={transparent}>
             <ControlButtons>
-                <IconButton onClick={transparencyButtonClickHandler}>
-                    {transparent ? '☀️' : '🌙'}
-                </IconButton>
-                <IconButton onClick={minimizeButtonClickHandler}>─</IconButton>
+                <IconButton
+                    style={{visibility: step === 2 ? 'visible' : 'hidden'}}
+                    onClick={() => setStep(1)}
+                >＜</IconButton>
+                <div className="d-flex gap-2">
+                    <IconButton onClick={transparencyButtonClickHandler}>
+                        {transparent ? '☀️' : '🌙'}
+                    </IconButton>
+                    <IconButton onClick={minimizeButtonClickHandler}>─</IconButton>
+                </div>
             </ControlButtons>
             {children}
         </WrapperStyle>
@@ -90,6 +105,8 @@ const Content = ({open}) => {
 
     return (
         <Wrapper
+            step={step}
+            setStep={setStep}
             transparent={transparent}
             transparencyButtonClickHandler={() => setTransparent((prev) => !prev)}
             minimizeButtonClickHandler={() =>
@@ -106,7 +123,8 @@ const Content = ({open}) => {
                 <StepOne isReviewDetectablePage={isReviewDetectablePage}
                          findReviewsButtonHandler={findReviewsButtonHandler}/>
                 {/* Step 2: 전환된 화면 */}
-                <StepTwo key={step} reviews={reviews} setStep={setStep}></StepTwo>
+                <StepTwo key={step} reviews={reviews} setStep={setStep}
+                         findReviewsButtonHandler={findReviewsButtonHandler}></StepTwo>
             </SlideContainer>
         </Wrapper>
     );

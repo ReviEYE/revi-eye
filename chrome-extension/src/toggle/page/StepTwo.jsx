@@ -4,6 +4,7 @@ import {SlidePage} from "../component/Slide.jsx";
 import {Card} from "react-bootstrap";
 import styled, {css, keyframes} from "styled-components";
 import {v4 as uuidv4} from "uuid";
+import {CheckIcon} from "../component/CheckIcon.jsx";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -28,14 +29,13 @@ const flyAway = keyframes`
 const StackContainer = styled.div`
     position: relative;
     width: 100%;
-    height: 400px;
-    perspective: 1000px;
+    height: 300px;
 `;
 
 const CardWrapper = styled.div`
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 300px;
     transform: translate(${({zIndex}) => zIndex * 2}px, ${({zIndex}) => zIndex * 2}px);
     z-index: ${({zIndex}) => zIndex};
 
@@ -95,6 +95,15 @@ const CloseButton = styled.button`
     z-index: 1;
 `;
 
+const Wrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 1rem;
+`;
+
 const ReviewCard = ({review, zIndex, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -109,7 +118,9 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
             <CardInner flipped={flipped}>
                 <CardFront>
                     <Card.Body>
-                        <CloseButton onClick={handleRemove}>×</CloseButton>
+                        <CloseButton onClick={handleRemove}>
+                            <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
+                        </CloseButton>
                         <Card.Title>리뷰 {zIndex + 1}</Card.Title>
                         <TextContent>{review}</TextContent>
                         <Button variant="primary" onClick={() => setFlipped(true)}>
@@ -119,9 +130,11 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
                 </CardFront>
                 <CardBack>
                     <Card.Body>
-                        <h5>분석 결과</h5>
+                        <CloseButton onClick={handleRemove}>
+                            <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
+                        </CloseButton>
                         <p>이곳에 분석 내용을 넣을 수 있어요.</p>
-                        <Button variant="secondary" onClick={() => setFlipped(false)}>
+                        <Button variant="primary" onClick={() => setFlipped(false)}>
                             돌아가기
                         </Button>
                     </Card.Body>
@@ -131,7 +144,7 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
     );
 };
 
-export const StepTwo = ({reviews, setStep}) => {
+export const StepTwo = ({reviews, findReviewsButtonHandler}) => {
     const [cardList, setCardList] = useState([]);
 
     useEffect(() => {
@@ -144,20 +157,21 @@ export const StepTwo = ({reviews, setStep}) => {
 
     return (
         <SlidePage>
-            <h5>탐지 결과</h5>
-            <StackContainer>
-                {cardList.map((item, index) => (
-                    <ReviewCard
-                        key={item.id}
-                        review={item.text}
-                        zIndex={cardList.length - index - 1}
-                        onRemove={() => removeCard(item.id)}
-                    />
-                ))}
-            </StackContainer>
-            <Button onClick={() => setStep(1)} variant="secondary">
-                뒤로
-            </Button>
+            <Wrapper>
+                <StackContainer>
+                    {cardList.map((item, index) => (
+                        <ReviewCard
+                            key={item.id}
+                            review={item.text}
+                            zIndex={cardList.length - index - 1}
+                            onRemove={() => removeCard(item.id)}
+                        />
+                    ))}
+                </StackContainer>
+                <Button variant="primary" className="w-100" onClick={findReviewsButtonHandler}>
+                    다시 로드하기
+                </Button>
+            </Wrapper>
         </SlidePage>
     );
 };

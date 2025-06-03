@@ -9,16 +9,8 @@ export const SlideContainer = styled.div`
 `;
 
 export const SlidePage = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
     width: 300px;
     height: 100%;
-    padding: 1rem;
-    flex-shrink: 0;
-    transition: 1s;
-    overflow-y: auto;
 `;
 
 
