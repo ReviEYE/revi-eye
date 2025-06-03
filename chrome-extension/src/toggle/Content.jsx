@@ -13,7 +13,7 @@ const WrapperStyle = styled.div`
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 9999;
-    background-color: ${({transparent}) => (transparent ? 'rgba(244, 243, 234, 0.3)' : 'rgba(244, 243, 234, 1)')};
+    background-color: ${({transparent}) => (transparent ? 'rgba(252, 252, 252, 0.3)' : 'rgba(252, 252, 252, 1)')};
     opacity: ${({transparent}) => (transparent ? 0.3 : 1)};
     transition: opacity 0.3s ease;
 `;

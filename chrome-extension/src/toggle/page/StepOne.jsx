@@ -15,7 +15,7 @@ export const StepOne = ({isReviewDetectablePage, findReviewsButtonHandler}) => {
                                 <GreenIcon/>
                                 <h2>현재 페이지는 지원됩니다.</h2>
                             </Stack>
-                            <Button onClick={findReviewsButtonHandler} variant="success">
+                            <Button onClick={findReviewsButtonHandler} variant="primary">
                                 리뷰 탐지하기
                             </Button>
                         </>
@@ -26,13 +26,12 @@ export const StepOne = ({isReviewDetectablePage, findReviewsButtonHandler}) => {
                                 <RedIcon/>
                                 <h2>현재 페이지는 지원되지 않습니다..</h2>
                             </Stack>
-                            <Button disabled variant="success">
+                            <Button disabled variant="primary">
                                 리뷰 탐지하기
                             </Button>
                         </>
                     )
             }
-
         </SlidePage>
     )
 }
