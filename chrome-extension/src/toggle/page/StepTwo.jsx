@@ -271,7 +271,7 @@ const ReviewCard = ({review, onRemove}) => {
                     <Card.Header>리뷰 {zIndex + 1}</Card.Header>
                     <Card.Body>
                         <CloseButton onClick={handleRemove}>
-                            <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
+                            <CheckIcon id={review.index} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
                         <ReviewMetaContent rating={review.rating} username={review.username} date={review.date}
                                            sellerName={review.sellerName}/>
@@ -292,7 +292,7 @@ const ReviewCard = ({review, onRemove}) => {
                 <CardBack key={flipped}>
                     <Card.Body>
                         <CloseButton onClick={handleRemove}>
-                            <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
+                            <CheckIcon id={zIndex} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
                         <ReviewAnalyzeResult/>
                         <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>

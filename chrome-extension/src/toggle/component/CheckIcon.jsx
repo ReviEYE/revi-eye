@@ -19,18 +19,21 @@ const StyledIcon = styled(FaCheckCircle)`
     height: 12px;
 `;
 
-export const CheckIcon = ({id, show, text}) => {
-    const icon = (
-        <IconWrapper>
-            <StyledIcon/>
-        </IconWrapper>
-    );
-
-    return show ? (
-        <OverlayTrigger overlay={<Tooltip id={id}>{text}</Tooltip>}>
-            {icon}
+export const CheckIcon = ({id, text}) => {
+    return (
+        <OverlayTrigger
+            overlay={
+                <Tooltip
+                    id={`tooltip-${id}`}
+                    style={{zIndex: 9999}} // 스타일 직접 부여
+                >
+                    {text}
+                </Tooltip>
+            }
+        >
+            <IconWrapper>
+                <StyledIcon/>
+            </IconWrapper>
         </OverlayTrigger>
-    ) : (
-        icon
     );
 };
