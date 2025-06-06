@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import {SlidePage} from "../component/Slide.jsx";
-import {Card} from "react-bootstrap";
+import {Card, ProgressBar, Spinner} from "react-bootstrap";
 import styled, {css, keyframes} from "styled-components";
 import {v4 as uuidv4} from "uuid";
 import {CheckIcon} from "../component/CheckIcon.jsx";
-import {FaRegStar, FaStar, FaStarHalfAlt} from "react-icons/fa";
+import {FaRegStar, FaStar, FaStarHalfAlt, FaThumbsUp} from "react-icons/fa";
+import {TypingText} from "../component/TypingText.jsx";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -159,6 +160,49 @@ const ReviewMetaContent = ({rating, username, date, sellerName}) => {
     );
 };
 
+const HelpfulWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #555;
+    margin: 4px 0;
+    gap: 4px;
+`;
+
+export const HelpfulCountContent = ({helpfulCount}) => {
+    return (
+        <HelpfulWrapper>
+            <FaThumbsUp color="#0d6efd" size={12}/>
+            <span>{helpfulCount}명에게 도움이 됐어요</span>
+        </HelpfulWrapper>
+    );
+};
+
+const AnalyzeButton = ({setFlipped}) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleClick = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setFlipped(true);
+        }, 500);
+    };
+
+    return (
+        <Button variant="primary" size="sm" onClick={handleClick} disabled={loading}>
+            {loading ? (
+                <>
+                    <Spinner animation="grow" size="sm" className="me-2"/>
+                    로딩 중...
+                </>
+            ) : (
+                '분석하기'
+            )}
+        </Button>
+    );
+};
+
 const ReviewCard = ({review, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -181,7 +225,8 @@ const ReviewCard = ({review, onRemove}) => {
                         </CloseButton>
                         <ReviewMetaContent rating={review.rating} username={review.username} date={review.date}
                                            sellerName={review.sellerName}/>
-                        <TextContent className="blockquote">{review.content}</TextContent>
+                        <TextContent className="blockquote mb-0">{review.content}</TextContent>
+                        <HelpfulCountContent helpfulCount={review.helpfulCount}/>
                         <div className="d-flex gap-2">
                             <Button variant="primary" size="sm"
                                     onClick={() => window.parent.postMessage({
@@ -190,19 +235,23 @@ const ReviewCard = ({review, onRemove}) => {
                                     }, '*')}>
                                 원문보기
                             </Button>
-                            <Button variant="primary" size="sm" onClick={() => setFlipped(true)}>
-                                분석하기
-                            </Button>
+                            <AnalyzeButton setFlipped={setFlipped}/>
                         </div>
                     </Card.Body>
                 </CardFront>
-                <CardBack>
+                <CardBack key={flipped}>
                     <Card.Body>
                         <CloseButton onClick={handleRemove}>
                             <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
-                        <p>이곳에 분석 내용을 넣을 수 있어요.</p>
-                        <Button variant="primary" onClick={() => setFlipped(false)}>
+                        <TextContent className="blockquote mb-0">
+                            <TypingText>
+                                {review.content}
+                            </TypingText>
+                        </TextContent>
+                        <ProgressBar variant="success" now={40} label={`${40}%`}/>
+                        <ProgressBar now={60} label={`${60}%`}/>
+                        <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>
                             돌아가기
                         </Button>
                     </Card.Body>
