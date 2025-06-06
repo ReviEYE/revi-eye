@@ -203,6 +203,56 @@ const AnalyzeButton = ({setFlipped}) => {
     );
 };
 
+const ResultWrapper = styled.div`
+    max-height: 280px;
+    margin-bottom: 1rem;
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .review-analyze-text {
+        height: 120px;
+        padding: 1rem;
+        border-radius: 24px;
+        background-color: #fff;
+    }
+`;
+
+const ProgressLabel = styled.div`
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+`;
+
+export const ReviewAnalyzeResult = ({result}) => {
+    const MOCK_TEXT = '올브 솥밥이 맛조좋고 몸에좋다고 해서 구매했습니다.\n' +
+        '원래 올리브 좋아해서 맛나게 먹고있어요\n' +
+        '제입맛에는 조금 짜서 물에 담궈둿다 알맹이만 혼자 먹어도 맛나요';
+
+    // 예시 비율
+    const aiRatio = 60;
+    const humanRatio = 100 - aiRatio;
+
+    return (
+        <ResultWrapper>
+            <div className="review-analyze-text">
+                <TypingText>{MOCK_TEXT}</TypingText>
+            </div>
+
+            <div>
+                <ProgressLabel>AI Generated</ProgressLabel>
+                <ProgressBar variant="danger" now={aiRatio} label={`${aiRatio}%`}/>
+            </div>
+
+            <div>
+                <ProgressLabel>Human Generated</ProgressLabel>
+                <ProgressBar variant="success" now={humanRatio} label={`${humanRatio}%`}/>
+            </div>
+        </ResultWrapper>
+    );
+};
+
 const ReviewCard = ({review, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -244,13 +294,7 @@ const ReviewCard = ({review, onRemove}) => {
                         <CloseButton onClick={handleRemove}>
                             <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
-                        <TextContent className="blockquote mb-0">
-                            <TypingText>
-                                {review.content}
-                            </TypingText>
-                        </TextContent>
-                        <ProgressBar variant="success" now={40} label={`${40}%`}/>
-                        <ProgressBar now={60} label={`${60}%`}/>
+                        <ReviewAnalyzeResult/>
                         <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>
                             돌아가기
                         </Button>
