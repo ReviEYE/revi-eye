@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {BlueIcon} from "../component/BlueIcon.jsx";
 import {RedIcon} from "../component/RedIcon.jsx";
 import {SlidePage} from "../component/Slide.jsx";
+import {Spinner} from "react-bootstrap";
 
 // 전체 화면을 채우고 세로 정렬을 위한 Wrapper
 const Wrapper = styled.div`
@@ -25,30 +26,41 @@ const Content = styled.div`
     margin-bottom: auto;
 `;
 
-export const StepOne = ({isReviewDetectablePage, findReviewsButtonHandler}) => {
+export const StepOne = ({nowPage, isReviewDetectablePage, findReviewsButtonHandler}) => {
+    const isLoading = nowPage === '';
+
     return (
         <SlidePage>
             <Wrapper>
-                <Content>
-                    {isReviewDetectablePage ? (
-                        <>
-                            <BlueIcon/>
-                            <h2>현재 페이지는 지원됩니다.</h2>
-                        </>
-                    ) : (
-                        <>
-                            <RedIcon/>
-                            <h2>현재 페이지는 지원되지 않습니다.</h2>
-                        </>
-                    )}
-                </Content>
-                <Button
-                    onClick={findReviewsButtonHandler}
-                    variant="primary"
-                    disabled={!isReviewDetectablePage}
-                >
-                    리뷰 탐지하기
-                </Button>
+                {isLoading ? (
+                    <Content>
+                        <Spinner animation="grow" role="status"/>
+                        <div>페이지 정보를 불러오는 중...</div>
+                    </Content>
+                ) : (
+                    <>
+                        <Content>
+                            {isReviewDetectablePage ? (
+                                <>
+                                    <BlueIcon/>
+                                    <h2>현재 페이지는 지원됩니다.</h2>
+                                </>
+                            ) : (
+                                <>
+                                    <RedIcon/>
+                                    <h2>현재 페이지는 지원되지 않습니다.</h2>
+                                </>
+                            )}
+                        </Content>
+                        <Button
+                            onClick={findReviewsButtonHandler}
+                            variant="primary"
+                            disabled={!isReviewDetectablePage}
+                        >
+                            리뷰 탐지하기
+                        </Button>
+                    </>
+                )}
             </Wrapper>
         </SlidePage>
     );

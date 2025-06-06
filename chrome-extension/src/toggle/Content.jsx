@@ -143,7 +143,8 @@ const Content = ({open}) => {
             }}>
             <SlideContainer step={step}>
                 {/* Step 1: 초기 화면 */}
-                <StepOne isReviewDetectablePage={isReviewDetectablePage}
+                <StepOne nowPage={nowPage}
+                         isReviewDetectablePage={isReviewDetectablePage}
                          findReviewsButtonHandler={findReviewsButtonHandler}/>
                 {/* Step 2: 전환된 화면 */}
                 <StepTwo key={step} reviews={reviews} setStep={setStep}

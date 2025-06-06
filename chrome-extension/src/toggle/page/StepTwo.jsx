@@ -186,7 +186,7 @@ const AnalyzeButton = ({setFlipped}) => {
         setTimeout(() => {
             setLoading(false);
             setFlipped(true);
-        }, 500);
+        }, 1000);
     };
 
     return (
