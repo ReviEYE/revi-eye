@@ -14,7 +14,7 @@ const Toggle = () => {
         return () => window.removeEventListener('message', handler);
     }, []);
 
-    return <Content open={open}/>;
+    return <Content key={open} open={open}/>;
 };
 
 export default Toggle;

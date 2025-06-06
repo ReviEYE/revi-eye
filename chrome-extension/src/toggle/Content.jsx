@@ -1,9 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 import {extractReviewsFromHtml} from './util/extractReviewsFromHtml';
 import {SlideContainer} from "./component/Slide.jsx";
 import {StepOne} from "./page/StepOne.jsx";
 import {StepTwo} from "./page/StepTwo.jsx";
+
+const fadeInSlideUp = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 
 const WrapperStyle = styled.div`
     position: relative;
@@ -13,9 +24,10 @@ const WrapperStyle = styled.div`
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 9999;
-    background-color: ${({transparent}) => (transparent ? 'rgba(252, 252, 252, 0.3)' : 'rgba(252, 252, 252, 1)')};
-    opacity: ${({transparent}) => (transparent ? 0.3 : 1)};
-    transition: opacity 0.3s ease;
+    background-color: ${({transparent}) =>
+            transparent ? 'rgba(252, 252, 252, 0.3)' : 'rgba(252, 252, 252, 1)'};
+
+    animation: ${fadeInSlideUp} 0.3s ease-out;
 `;
 
 
@@ -47,6 +59,7 @@ const IconButton = styled.button`
 
 const Wrapper = ({
                      children,
+                     open,
                      step,
                      setStep,
                      transparent,
@@ -55,7 +68,7 @@ const Wrapper = ({
                  }) => {
 
     return (
-        <WrapperStyle transparent={transparent}>
+        <WrapperStyle open={open} transparent={transparent}>
             <ControlButtons>
                 <IconButton
                     style={{visibility: step === 2 ? 'visible' : 'hidden'}}
@@ -105,6 +118,7 @@ const Content = ({open}) => {
 
     return (
         <Wrapper
+            open={open}
             step={step}
             setStep={setStep}
             transparent={transparent}

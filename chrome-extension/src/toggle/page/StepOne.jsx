@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
-import {GreenIcon} from "../component/GreenIcon.jsx";
+import {BlueIcon} from "../component/BlueIcon.jsx";
 import {RedIcon} from "../component/RedIcon.jsx";
 import {SlidePage} from "../component/Slide.jsx";
 
@@ -32,7 +32,7 @@ export const StepOne = ({isReviewDetectablePage, findReviewsButtonHandler}) => {
                 <Content>
                     {isReviewDetectablePage ? (
                         <>
-                            <GreenIcon/>
+                            <BlueIcon/>
                             <h2>현재 페이지는 지원됩니다.</h2>
                         </>
                     ) : (

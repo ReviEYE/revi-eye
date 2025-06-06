@@ -5,7 +5,7 @@ import React from "react";
 const IconWrapper = styled.div`
     width: 64px;
     height: 64px;
-    background-color: #0d6efd; /* 초록색 */
+    background-color: #0d6efd; /* 파란색 */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +18,7 @@ const StyledIcon = styled(FaCheckCircle)`
     height: 32px;
 `;
 
-export const GreenIcon = () => {
+export const BlueIcon = () => {
     return (
         <IconWrapper>
             <StyledIcon/>
