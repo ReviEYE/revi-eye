@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, {css, keyframes} from 'styled-components';
 import {extractReviewsFromHtml} from './util/extractReviewsFromHtml';
 import {SlideContainer} from "./component/Slide.jsx";
 import {StepOne} from "./page/StepOne.jsx";
@@ -26,6 +26,15 @@ const WrapperStyle = styled.div`
     z-index: 9999;
     background-color: ${({transparent}) =>
             transparent ? 'rgba(252, 252, 252, 0.3)' : 'rgba(252, 252, 252, 1)'};
+    ${({transparent}) =>
+            transparent
+                    ? css`
+                        opacity: 0.3;
+                    `
+                    : css`
+                        opacity: 1;
+                    `};
+    transition: opacity 0.3s ease;
 
     animation: ${fadeInSlideUp} 0.3s ease-out;
 `;

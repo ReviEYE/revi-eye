@@ -72,6 +72,22 @@ const App = () => {
                 iframe.style.display = isHidden ? 'flex' : 'none';
                 iframe.contentWindow?.postMessage({action: 'toggle-content'}, '*');
             }
+
+            if (event.data?.action === 'FOCUS_REVIEW') {
+                const reviewElements = document.querySelectorAll(
+                    '.sdp-review__article__list__review__content.js_reviewArticleContent'
+                );
+                console.log(event.data.index);
+
+                const target = reviewElements[event.data.index];
+                if (target) {
+                    target.scrollIntoView({behavior: 'smooth', block: 'center'});
+
+                    // 포커스 가능하게 tabindex 부여
+                    target.setAttribute('tabindex', '-1');
+                    target.focus();
+                }
+            }
         };
 
         window.addEventListener('message', handler);

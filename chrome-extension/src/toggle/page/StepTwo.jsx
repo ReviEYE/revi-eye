@@ -40,13 +40,13 @@ const CardWrapper = styled.div`
     z-index: ${({zIndex}) => zIndex};
 
     ${({isVisible, zIndex}) =>
-            isVisible
-                    ? css`
+    isVisible
+        ? css`
                         animation: ${fadeInUp} 0.6s ease-out;
                         animation-delay: ${zIndex * 0.15}s;
                         animation-fill-mode: both;
                     `
-                    : css`
+        : css`
                         animation: ${flyAway} 0.5s forwards ease-in;
                     `}
 `;
@@ -65,6 +65,7 @@ const CardFace = styled(Card)`
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
+    border-radius: 22px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -79,6 +80,10 @@ const CardBack = styled(CardFace)`
 `;
 
 const TextContent = styled(Card.Text)`
+    background-color: #eee;
+    border-radius: 22px;
+    padding: 1rem;
+    font-size: 1rem;
     max-height: 120px;
     overflow-y: auto;
     white-space: pre-wrap;
@@ -117,12 +122,16 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
         <CardWrapper zIndex={zIndex} isVisible={isVisible}>
             <CardInner flipped={flipped}>
                 <CardFront>
+                    <Card.Header>리뷰 {zIndex + 1}</Card.Header>
                     <Card.Body>
                         <CloseButton onClick={handleRemove}>
                             <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
-                        <Card.Title>리뷰 {zIndex + 1}</Card.Title>
-                        <TextContent>{review}</TextContent>
+                        <TextContent className="blockquote">{review}</TextContent>
+                        <Button variant="primary"
+                                onClick={() => window.parent.postMessage({action: 'FOCUS_REVIEW', index: zIndex}, '*')}>
+                            원문보기
+                        </Button>
                         <Button variant="primary" onClick={() => setFlipped(true)}>
                             분석하기
                         </Button>
