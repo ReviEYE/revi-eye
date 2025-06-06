@@ -5,6 +5,7 @@ import {Card} from "react-bootstrap";
 import styled, {css, keyframes} from "styled-components";
 import {v4 as uuidv4} from "uuid";
 import {CheckIcon} from "../component/CheckIcon.jsx";
+import {FaRegStar, FaStar, FaStarHalfAlt} from "react-icons/fa";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -29,24 +30,24 @@ const flyAway = keyframes`
 const StackContainer = styled.div`
     position: relative;
     width: 100%;
-    height: 300px;
+    height: 320px;
 `;
 
 const CardWrapper = styled.div`
     position: absolute;
     width: 100%;
-    height: 300px;
+    height: 320px;
     transform: translate(${({zIndex}) => zIndex * 2}px, ${({zIndex}) => zIndex * 2}px);
     z-index: ${({zIndex}) => zIndex};
 
     ${({isVisible, zIndex}) =>
-    isVisible
-        ? css`
+            isVisible
+                    ? css`
                         animation: ${fadeInUp} 0.6s ease-out;
                         animation-delay: ${zIndex * 0.15}s;
                         animation-fill-mode: both;
                     `
-        : css`
+                    : css`
                         animation: ${flyAway} 0.5s forwards ease-in;
                     `}
 `;
@@ -65,7 +66,7 @@ const CardFace = styled(Card)`
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border-radius: 22px;
+    border-radius: 24px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -83,8 +84,8 @@ const TextContent = styled(Card.Text)`
     background-color: #eee;
     border-radius: 22px;
     padding: 1rem;
-    font-size: 1rem;
-    max-height: 120px;
+    font-size: 0.7rem;
+    max-height: 150px;
     overflow-y: auto;
     white-space: pre-wrap;
 `;
@@ -109,7 +110,56 @@ const Wrapper = styled.div`
     padding: 1rem;
 `;
 
-const ReviewCard = ({review, zIndex, onRemove}) => {
+const MetaWrapper = styled.div`
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+
+    .stars {
+        display: flex;
+        gap: 1px;
+    }
+
+    .meta-line {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+    }
+`;
+
+const ReviewMetaContent = ({rating, username, date, sellerName}) => {
+    const renderStars = (score) => {
+        const rating = parseFloat(score) || 0;
+
+        return (
+            <div className="stars">
+                {[...Array(5)].map((_, i) => {
+                    if (i + 1 <= rating) {
+                        return <FaStar key={i} color="#ffc107"/>;
+                    } else if (i + 0.5 <= rating) {
+                        return <FaStarHalfAlt key={i} color="#ffc107"/>;
+                    } else {
+                        return <FaRegStar key={i} color="#ccc"/>;
+                    }
+                })}
+            </div>
+        );
+    };
+
+    return (
+        <MetaWrapper>
+            <div className="meta-line">
+                {renderStars(rating)}
+                <span>{username}</span>
+                <span>{date}</span>
+            </div>
+            <div>
+                <span>{sellerName}</span>
+            </div>
+        </MetaWrapper>
+    );
+};
+
+const ReviewCard = ({review, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
 
@@ -117,6 +167,8 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
         setIsVisible(false);
         setTimeout(onRemove, 500); // 애니메이션 후 제거
     };
+
+    const zIndex = review.index;
 
     return (
         <CardWrapper zIndex={zIndex} isVisible={isVisible}>
@@ -127,14 +179,21 @@ const ReviewCard = ({review, zIndex, onRemove}) => {
                         <CloseButton onClick={handleRemove}>
                             <CheckIcon id={zIndex} show={true} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
-                        <TextContent className="blockquote">{review}</TextContent>
-                        <Button variant="primary"
-                                onClick={() => window.parent.postMessage({action: 'FOCUS_REVIEW', index: zIndex}, '*')}>
-                            원문보기
-                        </Button>
-                        <Button variant="primary" onClick={() => setFlipped(true)}>
-                            분석하기
-                        </Button>
+                        <ReviewMetaContent rating={review.rating} username={review.username} date={review.date}
+                                           sellerName={review.sellerName}/>
+                        <TextContent className="blockquote">{review.content}</TextContent>
+                        <div className="d-flex gap-2">
+                            <Button variant="primary" size="sm"
+                                    onClick={() => window.parent.postMessage({
+                                        action: 'FOCUS_REVIEW',
+                                        index: zIndex
+                                    }, '*')}>
+                                원문보기
+                            </Button>
+                            <Button variant="primary" size="sm" onClick={() => setFlipped(true)}>
+                                분석하기
+                            </Button>
+                        </div>
                     </Card.Body>
                 </CardFront>
                 <CardBack>
@@ -157,7 +216,7 @@ export const StepTwo = ({reviews, findReviewsButtonHandler}) => {
     const [cardList, setCardList] = useState([]);
 
     useEffect(() => {
-        setCardList(reviews.map((review) => ({id: uuidv4(), text: review})));
+        setCardList(reviews.map((review) => ({id: uuidv4(), review: review})));
     }, [reviews]);
 
     const removeCard = (idToRemove) => {
@@ -168,11 +227,10 @@ export const StepTwo = ({reviews, findReviewsButtonHandler}) => {
         <SlidePage>
             <Wrapper>
                 <StackContainer>
-                    {cardList.map((item, index) => (
+                    {cardList.map((item) => (
                         <ReviewCard
                             key={item.id}
-                            review={item.text}
-                            zIndex={cardList.length - index - 1}
+                            review={item.review}
                             onRemove={() => removeCard(item.id)}
                         />
                     ))}

@@ -77,8 +77,6 @@ const App = () => {
                 const reviewElements = document.querySelectorAll(
                     '.sdp-review__article__list__review__content.js_reviewArticleContent'
                 );
-                console.log(event.data.index);
-
                 const target = reviewElements[event.data.index];
                 if (target) {
                     target.scrollIntoView({behavior: 'smooth', block: 'center'});
