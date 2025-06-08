@@ -7,6 +7,7 @@ import {v4 as uuidv4} from "uuid";
 import {CheckIcon} from "../component/CheckIcon.jsx";
 import {FaRegStar, FaStar, FaStarHalfAlt, FaThumbsUp} from "react-icons/fa";
 import {TypingText} from "../component/TypingText.jsx";
+import {sendPredictRequest} from "../../api/prediction.api.js";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -178,15 +179,21 @@ export const HelpfulCountContent = ({helpfulCount}) => {
     );
 };
 
-const AnalyzeButton = ({setFlipped}) => {
+const AnalyzeButton = ({setFlipped, inputText, setResult}) => {
     const [loading, setLoading] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = async () => {
         setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
+        try {
+            const result = await sendPredictRequest(inputText);
+
+            if (setResult) setResult(result); // 결과 저장이 필요하면 prop으로 setResult 받아서 저장
             setFlipped(true);
-        }, 1000);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -230,8 +237,13 @@ export const ReviewAnalyzeResult = ({result}) => {
         '원래 올리브 좋아해서 맛나게 먹고있어요\n' +
         '제입맛에는 조금 짜서 물에 담궈둿다 알맹이만 혼자 먹어도 맛나요';
 
-    // 예시 비율
-    const aiRatio = 60;
+    const {
+        probability,
+        features,
+        contributions,
+    } = result;
+
+    const aiRatio = Math.round(probability * 100);
     const humanRatio = 100 - aiRatio;
 
     return (
@@ -256,6 +268,7 @@ export const ReviewAnalyzeResult = ({result}) => {
 const ReviewCard = ({review, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    const [result, setResult] = useState(false);
 
     const handleRemove = () => {
         setIsVisible(false);
@@ -285,7 +298,7 @@ const ReviewCard = ({review, onRemove}) => {
                                     }, '*')}>
                                 원문보기
                             </Button>
-                            <AnalyzeButton setFlipped={setFlipped}/>
+                            <AnalyzeButton inputText={review.content} setFlipped={setFlipped} setResult={setResult}/>
                         </div>
                     </Card.Body>
                 </CardFront>
@@ -294,14 +307,14 @@ const ReviewCard = ({review, onRemove}) => {
                         <CloseButton onClick={handleRemove}>
                             <CheckIcon id={zIndex} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
-                        <ReviewAnalyzeResult/>
+                        <ReviewAnalyzeResult result={result}/>
                         <div className="d-flex gap-2">
                             <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>
                                 돌아가기
                             </Button>
                             <Button variant="primary" size="sm" onClick={() => window.parent.postMessage({
                                 action: 'OPEN_MODAL',
-                                mock: 'mock'
+                                payload: {result: result}
                             }, '*')}>
                                 상세보기
                             </Button>

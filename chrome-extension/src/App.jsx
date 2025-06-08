@@ -6,6 +6,7 @@ import {DetailModal} from "./modal/Modal.jsx";
 const App = () => {
 
     const [showModal, setShowModal] = useState(true);
+    const [predictionResult, setPredictionResult] = useState({});
 
     useUrlChange((nowPage) => {
         const iframe = document.getElementById('content-iframe');
@@ -92,7 +93,7 @@ const App = () => {
             }
 
             if (event.data?.action === 'OPEN_MODAL') {
-                console.log(showModal)
+                setPredictionResult(event.data?.payload.result);
                 setShowModal(true);
             }
         };
@@ -104,7 +105,7 @@ const App = () => {
 
     return (
         <>
-            {showModal && <DetailModal onClose={() => setShowModal(false)}/>}
+            {showModal && <DetailModal predictResult={predictionResult} onClose={() => setShowModal(false)}/>}
         </>
     );
 };

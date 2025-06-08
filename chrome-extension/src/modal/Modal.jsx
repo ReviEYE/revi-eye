@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 
-export const DetailModal = ({onClose}) => {
+export const DetailModal = ({predictResult, onClose}) => {
     const [animated, setAnimated] = useState(false);
+
+    console.log(predictResult);
 
     useEffect(() => {
         const timer = setTimeout(() => setAnimated(true), 50);
