@@ -295,9 +295,17 @@ const ReviewCard = ({review, onRemove}) => {
                             <CheckIcon id={zIndex} text={"확인 했으면 클릭!"}/>
                         </CloseButton>
                         <ReviewAnalyzeResult/>
-                        <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>
-                            돌아가기
-                        </Button>
+                        <div className="d-flex gap-2">
+                            <Button variant="primary" size="sm" onClick={() => setFlipped(false)}>
+                                돌아가기
+                            </Button>
+                            <Button variant="primary" size="sm" onClick={() => window.parent.postMessage({
+                                action: 'OPEN_MODAL',
+                                mock: 'mock'
+                            }, '*')}>
+                                상세보기
+                            </Button>
+                        </div>
                     </Card.Body>
                 </CardBack>
             </CardInner>

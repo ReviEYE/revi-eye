@@ -1,8 +1,12 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import {useUrlChange} from './hooks/useUrlChange';
+import {DetailModal} from "./modal/Modal.jsx";
 
 const App = () => {
+
+    const [showModal, setShowModal] = useState(false);
+
     useUrlChange((nowPage) => {
         const iframe = document.getElementById('content-iframe');
         iframe?.contentWindow?.postMessage(
@@ -86,6 +90,11 @@ const App = () => {
                     target.focus();
                 }
             }
+
+            if (event.data?.action === 'OPEN_MODAL') {
+                console.log(showModal)
+                setShowModal(true);
+            }
         };
 
         window.addEventListener('message', handler);
@@ -93,7 +102,11 @@ const App = () => {
 
     }, []);
 
-    return null;
+    return (
+        <>
+            {showModal && <DetailModal onClose={() => setShowModal(false)}/>}
+        </>
+    );
 };
 
 // React 앱 mount
