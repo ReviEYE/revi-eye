@@ -17,7 +17,7 @@ app = FastAPI()
 sbert = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
 
 # BERT soft score 모델
-model_path = "C:/gitroot/kluebert-human-ai-review"
+model_path = "./kluebert-human-ai-review"
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 bert_model = AutoModelForSequenceClassification.from_pretrained(model_path)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -25,8 +25,8 @@ bert_model.to(device)
 bert_model.eval()
 
 # 최종 meta 모델 & 스케일러
-clf = joblib.load("C:/gitroot/MJ_model/final_meta_model_v2.joblib")
-scaler = joblib.load("C:/gitroot/MJ_model/final_scaler_v2.joblib")
+clf = joblib.load("./final_meta_model_v2.joblib")
+scaler = joblib.load("./final_scaler_v2.joblib")
 
 # Feature config
 feature_names = [
