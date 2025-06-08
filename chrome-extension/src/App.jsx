@@ -5,7 +5,7 @@ import {DetailModal} from "./modal/Modal.jsx";
 
 const App = () => {
 
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
 
     useUrlChange((nowPage) => {
         const iframe = document.getElementById('content-iframe');
