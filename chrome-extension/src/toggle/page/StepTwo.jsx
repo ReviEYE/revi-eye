@@ -8,6 +8,7 @@ import {CheckIcon} from "../component/CheckIcon.jsx";
 import {FaRegStar, FaStar, FaStarHalfAlt, FaThumbsUp} from "react-icons/fa";
 import {TypingText} from "../component/TypingText.jsx";
 import {sendPredictRequest} from "../../api/prediction.api.js";
+import {FetchResultToast} from "../component/FetchResultToast.jsx";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -179,34 +180,39 @@ export const HelpfulCountContent = ({helpfulCount}) => {
     );
 };
 
-const AnalyzeButton = ({setFlipped, inputText, setResult}) => {
+const AnalyzeButton = ({setFlipped, inputText, setResult, setToast}) => {
     const [loading, setLoading] = useState(false);
 
     const handleClick = async () => {
         setLoading(true);
         try {
             const result = await sendPredictRequest(inputText);
+            setResult(result);
 
-            if (setResult) setResult(result); // 결과 저장이 필요하면 prop으로 setResult 받아서 저장
+            setToast({show: true, success: true});
             setFlipped(true);
         } catch (error) {
             console.error(error);
+            setToast({show: true, success: false});
+            setTimeout(() => setToast((prev) => ({...prev, show: false})), 1500);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <Button variant="primary" size="sm" onClick={handleClick} disabled={loading}>
-            {loading ? (
-                <>
-                    <Spinner animation="grow" size="sm" className="me-2"/>
-                    로딩 중...
-                </>
-            ) : (
-                '분석하기'
-            )}
-        </Button>
+        <>
+            <Button variant="primary" size="sm" onClick={handleClick} disabled={loading}>
+                {loading ? (
+                    <>
+                        <Spinner animation="grow" size="sm" className="me-2"/>
+                        로딩 중...
+                    </>
+                ) : (
+                    "분석하기"
+                )}
+            </Button>
+        </>
     );
 };
 
@@ -269,6 +275,7 @@ const ReviewCard = ({review, onRemove}) => {
     const [flipped, setFlipped] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const [result, setResult] = useState(false);
+    const [toast, setToast] = useState({show: false, success: false});
 
     const handleRemove = () => {
         setIsVisible(false);
@@ -298,7 +305,8 @@ const ReviewCard = ({review, onRemove}) => {
                                     }, '*')}>
                                 원문보기
                             </Button>
-                            <AnalyzeButton inputText={review.content} setFlipped={setFlipped} setResult={setResult}/>
+                            <AnalyzeButton inputText={review.content} setFlipped={setFlipped} setResult={setResult}
+                                           setToast={setToast}/>
                         </div>
                     </Card.Body>
                 </CardFront>
@@ -322,6 +330,7 @@ const ReviewCard = ({review, onRemove}) => {
                     </Card.Body>
                 </CardBack>
             </CardInner>
+            {toast.show && <FetchResultToast isSuccess={toast.success}/>}
         </CardWrapper>
     );
 };

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import {useUrlChange} from './hooks/useUrlChange';
-import {DetailModal} from "./modal/Modal.jsx";
+import {DetailModal} from "./modal/DetailModal.jsx";
 
 const App = () => {
 
