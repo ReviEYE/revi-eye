@@ -15,7 +15,7 @@ export const summarizeOverallResult = ({probability, contributions}) => {
         if (aiConfidence >= 0.9) return "해당당 리뷰는 AI가 작성했을 가능성이 매우 높습니다.";
         if (aiConfidence >= 0.7) return "AI가 작성했을 가능성이 높은 리뷰입니다.";
         if (aiConfidence >= 0.3) return "AI와 사람이 작성했을 가능성이 비슷해 보입니다.";
-        return "사람이 직접 작성했을 가능성이 높은 리뷰입니다.";
+        return "사람람이 직접 작성했을 가능성이 높은 리뷰입니다.";
     })();
 
     const reasons = [];
@@ -46,7 +46,7 @@ export const summarizeOverallResult = ({probability, contributions}) => {
         }
     };
 
-    const explanationList = filterReasons().map(r => r.replace(/^\[\w+\] /, ""));
+    const explanationList = filterReasons().map(r => r.slice(5));
 
     return [aiJudgment, ...explanationList].join(" ");
 };

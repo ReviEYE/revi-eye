@@ -46,6 +46,7 @@ export const SummaryCard = styled.div`
     min-width: 260px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 12px;
     border: 1px solid #cddcea;
     border-radius: 8px;
@@ -109,10 +110,25 @@ export const BarWrapper = styled.div`
 `;
 
 export const Bar = styled.div`
-    width: 100%;
-    background-color: #e6edf4;
-    border-top: 2px solid #4574a1;
-    transition: height 0.6s ease-out;
+    width: 24px;
+    height: 0%;
+    transition: height 0.4s ease;
+    background-color: ${({negative}) => (negative ? "#e74c3c" : "#5b8def")};
+    position: relative;
+
+    &:hover::after {
+        content: attr(data-value) '%';
+        position: absolute;
+        top: -24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.75);
+        color: #fff;
+        padding: 4px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
 `;
 
 export const BarLabel = styled.p`
@@ -138,3 +154,24 @@ export const CloseButton = styled.button`
     border-radius: 6px;
     cursor: pointer;
 `;
+
+
+export const LegendWrapper = styled.div`
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    justify-content: flex-end;
+`
+
+export const LegendItemWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 6px;
+`
+
+export const LegendColor = styled.div`
+    width: 12px;
+    height: 12px;
+    background-color: ${(props) => props.color || "#5b8def"};
+    border-radius: 2px;
+`

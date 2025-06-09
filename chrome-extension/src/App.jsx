@@ -121,7 +121,7 @@ const App = () => {
         if (iframe) iframe.style.visibility = 'visible';
     };
 
-    return showModal && <DetailModal predictResult={predictionResult} onClose={onClose}/>;
+    return showModal && <DetailModal predictionResult={predictionResult} onClose={onClose}/>;
 };
 
 // React 앱 mount

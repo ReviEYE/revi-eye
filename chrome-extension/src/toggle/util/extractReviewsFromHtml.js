@@ -23,7 +23,7 @@ export function extractReviewsFromHtml(html) {
     );
 
     const helpfulCountElements = doc.querySelectorAll(
-        '.js_reviewArticleHelpfulCount'
+        '.sdp-review__article__list__help__count strong'
     );
 
     const reviewCount = reviewElements.length;
