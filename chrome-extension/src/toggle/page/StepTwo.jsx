@@ -9,6 +9,7 @@ import {FaRegStar, FaStar, FaStarHalfAlt, FaThumbsUp} from "react-icons/fa";
 import {TypingText} from "../component/TypingText.jsx";
 import {sendPredictRequest} from "../../api/prediction.api.js";
 import {FetchResultToast} from "../component/FetchResultToast.jsx";
+import {summarizeOverallResult} from "../util/summarizeOverallResult.js";
 
 // 카드 초기 등장 애니메이션
 const fadeInUp = keyframes`
@@ -239,15 +240,15 @@ const ProgressLabel = styled.div`
 `;
 
 export const ReviewAnalyzeResult = ({result}) => {
-    const MOCK_TEXT = '올브 솥밥이 맛조좋고 몸에좋다고 해서 구매했습니다.\n' +
-        '원래 올리브 좋아해서 맛나게 먹고있어요\n' +
-        '제입맛에는 조금 짜서 물에 담궈둿다 알맹이만 혼자 먹어도 맛나요';
-
     const {
+        prediction,
         probability,
         features,
         contributions,
     } = result;
+
+    const summarizeText = summarizeOverallResult({probability, contributions});
+
 
     const aiRatio = Math.round(probability * 100);
     const humanRatio = 100 - aiRatio;
@@ -255,7 +256,7 @@ export const ReviewAnalyzeResult = ({result}) => {
     return (
         <ResultWrapper>
             <div className="review-analyze-text">
-                <TypingText>{MOCK_TEXT}</TypingText>
+                <TypingText>{summarizeText}</TypingText>
             </div>
 
             <div>
