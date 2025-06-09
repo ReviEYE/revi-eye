@@ -103,8 +103,8 @@ export const DetailModal = ({predictionResult, onClose}) => {
                     </SummaryCard>
 
                     <GraphCard>
-                        <SectionTitle>AI 작성 가능성</SectionTitle>
-                        <ScoreText>{aiScore.toFixed(2)}%</ScoreText>
+                        <SectionTitle>{aiScore >= 50 ? "AI 작성 가능성" : "사람 작성 가능성"}</SectionTitle>
+                        <ScoreText>{aiScore >= 50 ? aiScore.toFixed(2) : (100 - aiScore).toFixed(2)}%</ScoreText>
                         <LegendWrapper>
                             <LegendItemWrapper>
                                 <LegendColor color={"#5b8def"}/>
