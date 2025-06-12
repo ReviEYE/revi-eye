@@ -15,7 +15,7 @@ import {summarizeOverallResult} from "../util/summarizeOverallResult.js";
 const fadeInUp = keyframes`
     from {
         opacity: 0;
-        transform: translateY(50px) scale(0.95);
+        transform: translateY(100px) scale(0.95);
     }
     to {
         opacity: 1;
@@ -48,7 +48,7 @@ const CardWrapper = styled.div`
             isVisible
                     ? css`
                         animation: ${fadeInUp} 0.6s ease-out;
-                        animation-delay: ${zIndex * 0.15}s;
+                        animation-delay: ${zIndex * 0.3}s;
                         animation-fill-mode: both;
                     `
                     : css`
@@ -89,7 +89,7 @@ const TextContent = styled(Card.Text)`
     border-radius: 22px;
     padding: 1rem;
     font-size: 0.7rem;
-    max-height: 150px;
+    max-height: 120px;
     overflow-y: auto;
     white-space: pre-wrap;
 `;
