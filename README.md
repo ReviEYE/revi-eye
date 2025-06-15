@@ -5,8 +5,12 @@ git clone https://github.com/ReviEYE/revi-eye.git
 # 크롬 익스텐션 설치 적용
 cd chrome-extension
 npm install
-npm run build
-# /dist 결과물을 chrome에 확장 프로그램에 로드
+npm run build # 이후 /dist 결과물을 chrome에 확장 프로그램에 로드 
+
+# AI 모델 서버 로컬 실행
+pip install -r requirements.txt
+uvicorn my_api_server:app --host 0.0.0.0 --port 8000
+
 ```
   
 ## 🔥 소개  
@@ -58,6 +62,10 @@ npm run build
 
 
 ## 🛠️ 기술 스택
+### chrome-extension
+* React + Vite
+
+### AI Model
 
 ## 🏗️ 아키텍쳐
 
