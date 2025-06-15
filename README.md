@@ -60,6 +60,7 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 * FastAPI
 * sentence-transformers
 * klue/bert base model
+* torch
 
 ## 🏗️ 아키텍처
 ![아키텍처](https://github.com/user-attachments/assets/e7f928be-8d37-4f0e-a5bf-95da5c00ceb8)
