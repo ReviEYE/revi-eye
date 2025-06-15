@@ -1,6 +1,7 @@
 # 설치 방법
 ```
 git clone https://github.com/ReviEYE/revi-eye.git
+cd revi-eye
 
 # 크롬 익스텐션 설치 적용
 cd chrome-extension
@@ -8,6 +9,7 @@ npm install
 npm run build # 이후 /dist 결과물을 chrome에 확장 프로그램에 로드 
 
 # AI 모델 서버 로컬 실행
+cd model
 pip install -r requirements.txt
 uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 
