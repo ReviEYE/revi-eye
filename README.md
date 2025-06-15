@@ -36,24 +36,7 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 | <a href="https://github.com/doturak"><img src="https://avatars.githubusercontent.com/u/163323635?s=64&v=4" width="100"></a> | <a href="https://github.com/minhyukroh2"><img src="https://avatars.githubusercontent.com/u/211211199?s=64&v=4" width="100"></a>| <a href="https://github.com/4dong"><img src="https://avatars.githubusercontent.com/u/88959824?s=96&v=4" width="100"></a> | <a href="https://github.com/JeongSH1"><img src="https://avatars.githubusercontent.com/u/125888614?v=4" width="100"></a> |
 | [doturak](https://github.com/doturak) | [minhyukroh2](https://github.com/minhyukroh2) | [hogumachu](https://github.com/4dong) | [JeongSH1](https://github.com/JeongSH1) |
 
- ## ⭐️ 프로젝트 소개
-
 ## 💡 주요 기능 소개
-
-<table>
-    <tr>
-    <th style="width: 33%;">.</th>
-    <th style="width: 33%;">.</th>
-    <th style="width: 33%;">.</th>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td><img src="" style="width: 100%;"/></td>
-  </tr>
-</table>
-
-<br>
 
 <table>
     <tr>
@@ -74,6 +57,10 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 * React + Vite
 
 ### AI Model
+* FastAPI
+* sentence-transformers
+* klue/bert base model
 
-## 🏗️ 아키텍쳐
+## 🏗️ 아키텍처
+![아키텍처](https://github.com/user-attachments/assets/e7f928be-8d37-4f0e-a5bf-95da5c00ceb8)
 
