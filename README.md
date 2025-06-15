@@ -40,9 +40,9 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 
 <table>
     <tr>
-    <th style="width: 33%;">.</th>
-    <th style="width: 33%;">.</th>
-    <th style="width: 33%;">.</th>
+    <th style="width: 33%;">리뷰 탐지</th>
+    <th style="width: 33%;">결과 분석</th>
+    <th style="width: 33%;">상세 분석</th>
   </tr>
   <tr>
     <td></td>
