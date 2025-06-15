@@ -45,9 +45,9 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
     <th style="width: 33%;">상세 분석</th>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td><img src="" style="width: 100%;"/></td>
+    <td><img src="https://github.com/user-attachments/assets/c0f01c67-86a7-4051-9700-3b88abc52ff3" style="width: 100%;"/></td>
+    <td><img src="https://github.com/user-attachments/assets/2ba4c2e0-ac5f-46d4-9d19-c650b83328c7" style="width: 100%;"/></td>
+    <td><img src="https://github.com/user-attachments/assets/27053a98-bf78-447e-9ee4-cd38018e3610" style="width: 100%;"/></td>
   </tr>
 </table>
 
