@@ -9,7 +9,7 @@
 ## 📔 문서
 📑 [Wiki]()
 
-## 🧑🏻‍💻 HeatPick 팀원 소개
+## 🧑🏻‍💻 팀원 소개
 | 학번_김윤 | 학번_노민혁 | 학번_정기현 | 학번_정세호 |
 | :--: | :--: | :--: | :--: |
 | <a href="https://github.com/doturak"><img src="https://avatars.githubusercontent.com/u/163323635?s=64&v=4" width="100"></a> | <a href="https://github.com/minhyukroh2"><img src="https://avatars.githubusercontent.com/u/211211199?s=64&v=4" width="100"></a>| <a href="https://github.com/4dong"><img src="https://avatars.githubusercontent.com/u/88959824?s=96&v=4" width="100"></a> | <a href="https://github.com/JeongSH1"><img src="https://avatars.githubusercontent.com/u/125888614?v=4" width="100"></a> |
@@ -53,10 +53,4 @@
 ## 🛠️ 기술 스택
 
 ## 🏗️ 아키텍쳐
-
-## 🤔 기술 구현 과정
-
-## 🏃🏻 기술적 도전
-
-## 🫠 트러블 슈팅
 
