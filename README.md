@@ -34,7 +34,7 @@ uvicorn my_api_server:app --host 0.0.0.0 --port 8000
 | 학번_김윤 | 학번_노민혁 | 학번_정기현 | 학번_정세호 |
 | :--: | :--: | :--: | :--: |
 | <a href="https://github.com/doturak"><img src="https://avatars.githubusercontent.com/u/163323635?s=64&v=4" width="100"></a> | <a href="https://github.com/minhyukroh2"><img src="https://avatars.githubusercontent.com/u/211211199?s=64&v=4" width="100"></a>| <a href="https://github.com/4dong"><img src="https://avatars.githubusercontent.com/u/88959824?s=96&v=4" width="100"></a> | <a href="https://github.com/JeongSH1"><img src="https://avatars.githubusercontent.com/u/125888614?v=4" width="100"></a> |
-| [doturak](https://github.com/doturak) | [minhyukroh2](https://github.com/minhyukroh2) | [hogumachu](https://github.com/4dong) | [JeongSH1](https://github.com/JeongSH1) |
+| [doturak](https://github.com/doturak) | [minhyukroh2](https://github.com/minhyukroh2) | [4dong](https://github.com/4dong) | [JeongSH1](https://github.com/JeongSH1) |
 
 ## 💡 주요 기능 소개
 
